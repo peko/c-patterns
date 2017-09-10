@@ -18,3 +18,6 @@ void  cat_del(cat_p);                     //             //      //
 void  cat_print(cat_p);                   //            ((       // 
 void  cat_update(cat_p);                  //             \)      // 
 
+void cat_set_update(cat_p, void (*update)(cat_p));
+cat_attr_p cat_get_attr(cat_p cat);
+

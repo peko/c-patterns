@@ -3,11 +3,14 @@
 
 #include <stdio.h>
 
+#include "../cat.h"
 #include "states.h"
 
-static void update(cat_state_p state, cat_attr_p attr) {
+static void update(cat_p cat) {
 
     printf("DEAD         \n");
+
+    cat_attr_p attr = cat_get_attr(cat);
 
     // Котик помер, из стейта выхода нет
     attr->hunger = 0;
@@ -16,7 +19,7 @@ static void update(cat_state_p state, cat_attr_p attr) {
     
 }
 
-void to_death(cat_state_p state) {
+void to_death(cat_p cat) {
     printf("DEAD =x.x=\n");
-    state->update = update;
+    cat_set_update(cat, update);
 }

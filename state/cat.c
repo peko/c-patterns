@@ -2,12 +2,12 @@
 #include <stdio.h>
 
 #include "cat.h"
-#include "cat_state.h"
+#include "states/states.h"
 
 // Завершение структуры кота
 struct cat {
     struct cat_attr attr;
-    struct cat_state state;
+    void (*update)(cat_p);
 };
 
 cat_p cat_new() {
@@ -17,7 +17,7 @@ cat_p cat_new() {
         .food  =   0,
         .energy= 100,
         .luck  =   5,};
-    cat_state_init(&cat->state);
+    to_sleep(cat);
     return cat;
 }
 
@@ -30,6 +30,14 @@ void cat_print(cat_p cat){
 }
 
 void cat_update(cat_p cat) {
-    cat->state.update(&cat->state, &cat->attr);
+    cat->update(cat);
+}
+
+void cat_set_update(cat_p cat, void (*update)(cat_p)) {
+	cat->update = update;
+}
+
+cat_attr_p cat_get_attr(cat_p cat) {
+    return &cat->attr;
 }
 

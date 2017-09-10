@@ -4,17 +4,20 @@
 #include "cat.h"
 
 int main() {
+
     // Анонимный кот
     cat_p cat = cat_new();
     for(int i=0;;i++) {
-        printf("[%d]          \n",i);
+
+        printf("\033[2J"); // Clear screen
+        printf("[%d]\n",i);
 
         // Шаг автоматата
         cat_update(cat);
         // Запрос состояния
+        // printf("\033[10B"); // Move down
         cat_print(cat);
-
-        printf("\033[5A"); // Move up
+		
         usleep(1e5);
     }
     cat_del(cat);

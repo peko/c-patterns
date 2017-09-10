@@ -3,11 +3,14 @@
 
 #include <stdio.h>
 
+#include "../cat.h"
 #include "states.h"
 
-static void update(cat_state_p state, cat_attr_p attr) {
+static void update(cat_p cat) {
 
     printf("EATING       \n");
+
+    cat_attr_p attr = cat_get_attr(cat);
 
     // голод и силы падают, еда уменьшается
     attr->hunger -= 5;
@@ -17,11 +20,11 @@ static void update(cat_state_p state, cat_attr_p attr) {
     // ест пока не кончатся еда, силы или голод
     if(attr->food   <= 0 ||
        attr->energy <= 0 ||
-       attr->hunger <= 0) to_sleep(state);
+       attr->hunger <= 0) to_sleep(cat);
     
 }
 
-void to_eat(cat_state_p state) {
+void to_eat(cat_p cat) {
     printf("GOING EAT\n");
-    state->update = update;
+    cat_set_update(cat, update);
 }
