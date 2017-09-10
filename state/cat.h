@@ -2,7 +2,6 @@
 // CAT
 
 #pragma once
-#include "cat_state.h"
 
 typedef struct cat* cat_p;                //           /\___/\   // 
 typedef struct cat_attr* cat_attr_p;      //           )     (   // 
