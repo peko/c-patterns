@@ -10,11 +10,11 @@ struct cat {
 };
 
 // кошачие стратегии
-static void sleeping() {printf("snooor snooor\n"        );}
-static void eating  () {printf("chrunch crunch\n"       );}
-static void playing () {printf("hur hur hur jump jump\n");}
-static void noisy   () {printf("MEOW MEOW MEEEOOOW\n"   );}
-static void stary   () {printf("=O.O=\n"                );}
+static void sleeping() { printf("snooor snooor\n"        ); }
+static void eating  () { printf("chrunch crunch\n"       ); }
+static void playing () { printf("hur hur hur jump jump\n"); }
+static void noisy   () { printf("MEOW MEOW MEEEOOOW\n"   ); }
+static void stary   () { printf("=O.O=\n"                ); }
 static void (*strategies[])() = { &sleeping, &eating, &playing, &noisy, &stary};
 
 ////////////////////////////////////////////////////////
@@ -35,7 +35,7 @@ void cat_del(cat_p cat ) { free(cat);       }
 
 // проверка стратегии кота
 void cat_do_things(cat_p cat) { 
-	printf("cat #%d\n", cat->id);
+	printf("cat #%d ", cat->id);
     cat->strategy(); 
 }
 
