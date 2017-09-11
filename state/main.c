@@ -15,7 +15,6 @@ int main() {
         // Шаг автоматата
         cat_update(cat);
         // Запрос состояния
-        // printf("\033[10B"); // Move down
         cat_print(cat);
 		
         usleep(1e5);
