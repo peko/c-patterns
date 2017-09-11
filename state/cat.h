@@ -11,7 +11,7 @@ struct cat_attr {                         //          =\     /=  //
     int food  ; // Запасы еды    1-inf    //           )     (   // 
     int luck  ; // Удача в охоте 0-100%   //          /       \  // 
 };                                        //          \       /  // 
-                                          //  <:3@--   \__ __/   // 
+                                          //   <3@--   \__ __/   // 
 cat_p cat_new();                          //              ))     // 
 void  cat_del(cat_p);                     //             //      // 
 void  cat_print(cat_p);                   //            ((       // 
