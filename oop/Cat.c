@@ -6,7 +6,8 @@
 
 // Polymorphic function
 static void Voice(Animal* animal) {
-	printf("Meow!\n");
+	Cat* cat = AStruct_GetParent2(animal, Cat);
+	printf("Meow! I have %d Wiskers! Feed ME!\n", cat->wiskers_count);
 }
 
 static void Init(Cat* outCat) {

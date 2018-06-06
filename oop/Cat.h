@@ -19,4 +19,4 @@ struct ACat {
 	void (*Print)   (Animal* animal);
 };
 
-extern struct ACat ACat[1];
+struct ACat ACat[1];

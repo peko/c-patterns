@@ -1,1 +1,1 @@
-add_executable(main main.c Animal.c Cat.c Dog.c)
+add_executable(main main.c Animal.c Cat.c Dog.c Fish.c)

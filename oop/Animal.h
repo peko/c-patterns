@@ -17,7 +17,8 @@ struct AAnimal {
     Animal* (*Create )();
     void    (*Init   )(Animal* outAnimal);
     void    (*Release)(Animal* animal);
+    void    (*Feed   )(Animal* animal, int food);
     void    (*Print  )(Animal* animal);
 };
 
-extern struct AAnimal AAnimal[1];
+struct AAnimal AAnimal[1];

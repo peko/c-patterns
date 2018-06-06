@@ -19,4 +19,4 @@ struct ADog {
 	void (*Print)   (Animal* animal);
 };
 
-extern struct ADog ADog[1];
+struct ADog ADog[1];

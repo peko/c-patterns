@@ -19,9 +19,9 @@ static void Init(Dog* outDog) {
 }
 
 static Dog* Create() {
-	Dog* cat = (Dog*) malloc(sizeof(Dog));
-	Init(cat);
-	return cat;
+	Dog* dog = (Dog*) malloc(sizeof(Dog));
+	Init(dog);
+	return dog;
 }
 
 // Override function
@@ -30,7 +30,7 @@ static void Print(Animal* animal) {
 	AAnimal->Print(animal);
     printf("Dog specifics:\n"
            "\ttееth: %d\n"
-           "\ttail:    %d\n",
+           "\ttail:  %d\n",
            cat->teeth_count, cat->tail_length);
 }
 
