@@ -10,7 +10,8 @@ struct Animal {
     float lng;
 
     // Polymorphic function
-    void (*Voice)(Animal* animal);
+    void (*Voice  )(Animal* animal);
+    void (*Release)(Animal* animal);
 };
 
 struct AAnimal {

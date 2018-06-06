@@ -15,7 +15,7 @@ struct Cat {
 struct ACat {
 	Cat* (*Create)  ();
 	void (*Init)    (Cat* outCat);
-	void (*Release) (Cat* cat);
+	void (*Release) (Animal* animal);
 	void (*Print)   (Animal* animal);
 };
 

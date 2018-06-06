@@ -12,10 +12,17 @@ static void Voice(Animal* animal) {
 	printf("\n");
 }
 
+static void Release(Animal* animal) {
+	Cat* cat = AStruct_GetParent2(animal, Cat);
+	free(cat);
+	printf("An Cat released!\n");
+}
+
 static void Init(Cat* outCat) {
     Animal* animal = outCat->animal;
     AAnimal->Init(animal);
     animal->Voice = Voice; 
+    animal->Release = Release; 
 
 	outCat->wiskers_count = random()%10;
 	outCat->tail_length   = random()%20;
@@ -37,10 +44,6 @@ static void Print(Animal* animal) {
            cat->wiskers_count, cat->tail_length);
 }
 
-static void Release(Cat* cat) {
-	free(cat);
-	printf("An Cat released!\n");
-}
 
 struct ACat ACat[1] =  {
 	Create,

@@ -7,13 +7,19 @@ static void Voice(Animal* animal) {
 	printf("...\n");
 }
 
+static void Release(Animal* animal){
+	free(animal);
+	printf("An Animal released!\n");
+}
+
 static void Init(Animal* outAnimal) {
     *outAnimal = (struct Animal){
-        .Voice  = Voice,
-		.age    = random()%10,
-		.weight = random()%20,
-		.lng    = 180-random()%360,
-		.lat    =  90-random()%180,
+        .Voice   = Voice,
+        .Release = Release,
+		.age     = random()%10,
+		.weight  = random()%20,
+		.lng     = 180-random()%360,
+		.lat     =  90-random()%180,
     };
 }
 
@@ -31,11 +37,6 @@ static void Print(Animal* animal) {
            "\tlng:    %f\n"
            "\tlat:    %f\n",
            animal->age, animal->weight, animal->lng, animal->lat);
-}
-
-static void Release(Animal* animal){
-	free(animal);
-	printf("An Animal released!\n");
 }
 
 static void Feed(Animal* animal, int food) {

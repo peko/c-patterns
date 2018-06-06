@@ -9,10 +9,19 @@ static void Voice(Animal* animal) {
 	printf("Bark Bark!\n");
 }
 
+static void Release(Animal* animal) {
+	Dog* dog = AStruct_GetParent2(animal, Dog);
+	free(dog);
+	printf("An Dog released!\n");
+}
+
 static void Init(Dog* outDog) {
     Animal* animal = outDog->animal;
     AAnimal->Init(animal);
+
+    // override
     animal->Voice = Voice; 
+    animal->Release = Release; 
 
 	outDog->teeth_count = random()%10;
 	outDog->tail_length = random()%20;
@@ -26,17 +35,12 @@ static Dog* Create() {
 
 // Override function
 static void Print(Animal* animal) {
-	Dog* cat = AStruct_GetParent2(animal, Dog);
+	Dog* dog = AStruct_GetParent2(animal, Dog);
 	AAnimal->Print(animal);
     printf("Dog specifics:\n"
            "\ttееth: %d\n"
            "\ttail:  %d\n",
-           cat->teeth_count, cat->tail_length);
-}
-
-static void Release(Dog* cat) {
-	free(cat);
-	printf("An Dog released!\n");
+           dog->teeth_count, dog->tail_length);
 }
 
 struct ADog ADog[1] =  {
