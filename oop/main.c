@@ -27,7 +27,7 @@ int main(void) {
 		dog->animal,
 		fish->animal
     };
-    
+
     for(int i=0;i<4; i++) {
 		Animal* animal = animals[i];
 		AAnimal->Feed(animal, random()%10);
@@ -37,9 +37,25 @@ int main(void) {
     }
 
     printf("\n");
-
+    
     AFish->Release(fish); 
 	ADog->Release(dog);
 	ACat->Release(cat);
 	AAnimal->Release(animal);
+
+	Animal* zoo[20];
+	for(int i=0;i<20;i++){
+		switch(random()%2) {
+			case 0: zoo[i] = ACat->Create()->animal;break;
+			case 1: zoo[i] = ADog->Create()->animal;break;
+    	}
+   	}
+   	
+	for(int i=0;i<20;i++){
+		zoo[i]->Voice(zoo[i]);
+   	}
+	
+	for(int i=0;i<20;i++){
+		AAnimal->Release(zoo[i]);
+   	}
 }
