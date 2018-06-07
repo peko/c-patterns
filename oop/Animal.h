@@ -2,7 +2,6 @@
 
 typedef struct Animal Animal;
 struct Animal {
-
     // data
     int age;
     int weight;
@@ -14,6 +13,7 @@ struct Animal {
     void (*Release)(Animal* animal);
 };
 
+// Singelton declaration
 struct AAnimal {
     Animal* (*Create )();
     void    (*Init   )(Animal* outAnimal);
@@ -22,4 +22,5 @@ struct AAnimal {
     void    (*Print  )(Animal* animal);
 };
 
-struct AAnimal AAnimal[1];
+// Singelton pointer decalration
+extern struct AAnimal AAnimal[1];

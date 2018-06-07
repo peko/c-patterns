@@ -6,16 +6,16 @@
 
 // Polymorphic function
 static void Voice(Animal* animal) {
-	Cat* cat = AStruct_GetParent2(animal, Cat);
-	for (int i=0; i<cat->wiskers_count; i++)
-		printf("Meow! ", cat->wiskers_count);
-	printf("\n");
+    Cat* cat = AStruct_GetParent2(animal, Cat);
+    for (int i=0; i<cat->wiskers_count; i++)
+        printf("Meow! ", cat->wiskers_count);
+    printf("\n");
 }
 
 static void Release(Animal* animal) {
-	Cat* cat = AStruct_GetParent2(animal, Cat);
-	free(cat);
-	printf("An Cat released!\n");
+    Cat* cat = AStruct_GetParent2(animal, Cat);
+    free(cat);
+    printf("An Cat released!\n");
 }
 
 static void Init(Cat* outCat) {
@@ -24,20 +24,20 @@ static void Init(Cat* outCat) {
     animal->Voice = Voice; 
     animal->Release = Release; 
 
-	outCat->wiskers_count = random()%10;
-	outCat->tail_length   = random()%20;
+    outCat->wiskers_count = random()%10;
+    outCat->tail_length   = random()%20;
 }
 
 static Cat* Create() {
-	Cat* cat = (Cat*) malloc(sizeof(Cat));
-	Init(cat);
-	return cat;
+    Cat* cat = (Cat*) malloc(sizeof(Cat));
+    Init(cat);
+    return cat;
 }
 
 // Override function
 static void Print(Animal* animal) {
-	Cat* cat = AStruct_GetParent2(animal, Cat);
-	AAnimal->Print(animal);
+    Cat* cat = AStruct_GetParent2(animal, Cat);
+    AAnimal->Print(animal);
     printf("Cat specifics:\n"
            "\twiskers: %d\n"
            "\ttail:    %d\n",
@@ -46,8 +46,8 @@ static void Print(Animal* animal) {
 
 
 struct ACat ACat[1] =  {
-	Create,
-	Init,
-	Release,
-	Print
+    Create,
+    Init,
+    Release,
+    Print
 };

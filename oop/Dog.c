@@ -6,13 +6,13 @@
 
 // Polymorphic function
 static void Voice(Animal* animal) {
-	printf("Bark Bark!\n");
+    printf("Bark Bark!\n");
 }
 
 static void Release(Animal* animal) {
-	Dog* dog = AStruct_GetParent2(animal, Dog);
-	free(dog);
-	printf("An Dog released!\n");
+    Dog* dog = AStruct_GetParent2(animal, Dog);
+    free(dog);
+    printf("An Dog released!\n");
 }
 
 static void Init(Dog* outDog) {
@@ -23,29 +23,30 @@ static void Init(Dog* outDog) {
     animal->Voice = Voice; 
     animal->Release = Release; 
 
-	outDog->teeth_count = random()%10;
-	outDog->tail_length = random()%20;
+    outDog->teeth_count = random()%10;
+    outDog->tail_length = random()%20;
 }
 
 static Dog* Create() {
-	Dog* dog = (Dog*) malloc(sizeof(Dog));
-	Init(dog);
-	return dog;
+    Dog* dog = (Dog*) malloc(sizeof(Dog));
+    Init(dog);
+    return dog;
 }
 
 // Override function
 static void Print(Animal* animal) {
-	Dog* dog = AStruct_GetParent2(animal, Dog);
-	AAnimal->Print(animal);
+    Dog* dog = AStruct_GetParent2(animal, Dog);
+    AAnimal->Print(animal);
     printf("Dog specifics:\n"
            "\ttееth: %d\n"
            "\ttail:  %d\n",
            dog->teeth_count, dog->tail_length);
 }
 
+// Singelton ini
 struct ADog ADog[1] =  {
-	Create,
-	Init,
-	Release,
-	Print
+    Create,
+    Init,
+    Release,
+    Print
 };

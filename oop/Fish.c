@@ -10,25 +10,26 @@ static void Init(Fish* outFish) {
 }
 
 static Fish* Create() {
-	Fish* fish = (Fish*) malloc(sizeof(Fish));
-	Init(fish);
-	return fish;
+    Fish* fish = (Fish*) malloc(sizeof(Fish));
+    Init(fish);
+    return fish;
 }
 
 static void Release(Fish* cat) {
-	free(cat);
-	printf("An Fish released!\n");
+    free(cat);
+    printf("An Fish released!\n");
 }
 
 static void Print(Animal* animal) {
-	Fish* fish = AStruct_GetParent2(animal, Fish);
-	AAnimal->Print(animal);
+    Fish* fish = AStruct_GetParent2(animal, Fish);
+    AAnimal->Print(animal);
     printf("Fish have no specifics\n");
 }
 
+// Singelton ini
 struct AFish AFish[1] =  {
-	Create,
-	Init,
-	Release,
-	Print
+    Create,
+    Init,
+    Release,
+    Print
 };

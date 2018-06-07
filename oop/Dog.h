@@ -4,19 +4,22 @@
 
 typedef struct Dog Dog;
 struct Dog {
-    // Inheriting data
-	Animal animal[1];
-	
-	// Additional data
-	int tail_length;
-	int teeth_count;
+    // Inheriting from Animal
+    Animal animal[1];
+    
+    // Additional data
+    int tail_length;
+    int teeth_count;
 };
 
+
+// Singelton declaration
 struct ADog {
-	Dog* (*Create)  ();
-	void (*Init)    (Dog* outDog);
-	void (*Release) (Animal* animal);
-	void (*Print)   (Animal* animal);
+    Dog* (*Create)  ();
+    void (*Init)    (Dog* outDog);
+    void (*Release) (Animal* animal);
+    void (*Print)   (Animal* animal);
 };
 
-struct ADog ADog[1];
+// Singelton pointer declaration
+extern struct ADog ADog[1];

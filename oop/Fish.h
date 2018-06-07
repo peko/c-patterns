@@ -4,15 +4,17 @@
 
 typedef struct Fish Fish;
 struct Fish {
-    // Inheriting data
-	Animal animal[1];
+    // Inheritance from Animal
+    Animal animal[1];
 };
 
+// Singelton declaration
 struct AFish {
-	Fish* (*Create)  ();
-	void (*Init)    (Fish* outFish);
-	void (*Release) (Fish* cat);
-	void (*Print)   (Animal* animal);
+    Fish* (*Create)  ();
+    void (*Init)    (Fish* outFish);
+    void (*Release) (Fish* cat);
+    void (*Print)   (Animal* animal);
 };
 
-struct AFish AFish[1];
+// Singelton pointer declaration
+extern struct AFish AFish[1];
