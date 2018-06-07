@@ -4,6 +4,8 @@
 int tabs = 0;
 void ptabs(){ for(int i=0;i<tabs;i++) printf("\t"); }
 
+// ---------------------------------------------------------
+
 typedef struct Drawable Drawable;
 void Drawable_dtor(Drawable* drawable);
 Drawable* Drawable_ctor();
