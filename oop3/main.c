@@ -1,105 +1,129 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
+typedef struct Object Object;
 typedef struct Animal Animal;
 typedef struct Cat Cat;
 typedef struct Dog Dog;
 
 // -------------------------------------------------------
 
+struct Object {
+	int x, y, m;
+    void (*introspection)(void*);
+};
+
+static void 
+Object_introspection(void* object) {
+    Object* o = object;
+	printf("Object: x: %d y: %d m: %d\n", 
+		o->x, o->y, o->m);
+}
+
+static Object 
+Object_new() {
+	Object object = {
+		.x = 0, 
+		.y = 0,
+		.m = 1,	
+		.introspection = Object_introspection  
+    };
+    return object;
+}
+
+static void 
+Object_move(Object* object, int x, int y) {
+	object->x+=x;
+	object->y+=y;
+}
+
+// -------------------------------------------------------
+
 struct Animal {
-	int x,y,w;
-	int* animals_data;
-
-	void (*voice)(void*);
+    union {
+    	Object object;
+    	struct Object;
+    };
+    int age;
+    void (*voice)(void*);
 };
 
-void
+static void
+Animal_introspection (void* animal) {
+    Object_introspection(animal);
+    Animal* a = animal;
+	printf("Animal: age: %d\n", a->age);
+}
+
+static void
 Animal_voice(void* animal) {
-	printf("...\n");
+    printf("...\n");
 }
 
-Animal
+inline static Animal
 Animal_new() {
-	return (Animal){
-		.x = 1,
-		.y = 2,
-		.w = 5,
-		.animals_data = malloc(sizeof(int)*10),
-		.voice = Animal_voice,
-	};
+    Animal animal;
+    animal.object = Object_new();
+    animal.age = 5;
+    animal.voice = Animal_voice;
+    animal.introspection = Animal_introspection;
+    return animal;
 }
-
-void
-Animal_release(Animal* animal) {
-	free(animal->animals_data);
-};
 
 // ----------------------------------------------------
 
 struct Cat {
-	union {
-		Animal animal;
-		struct Animal;
-	};
-	int tail_length;
-	int* cats_data;
+    union {
+        Animal animal;
+        struct Animal;
+    };
+    int tail_length;
 };
 
+static void
+Cat_introspection (void* cat) {
+    Animal_introspection(cat);
+    Cat* c = cat;
+	printf("Cat: tail: %d\n", c->tail_length);
+}
 
-void
+static void
 Cat_voice(void* cat) {
-	printf("Meow!\n");
+    printf("Meow!\n");
 }
 
-Cat
+static Cat
 Cat_new() {
-	Cat cat = {
-		.animal=Animal_new(),
-		.tail_length=10,
-		.cats_data = malloc(sizeof(int)*20),
-		.voice = Cat_voice,
-	};
-	return cat;
-}
-void
-Cat_release(Cat* cat) {
-	Animal_release(&cat->animal);
-	free(cat->cats_data);
+    Cat cat;
+    cat.animal = Animal_new();
+    cat.introspection = Cat_introspection;
+    cat.voice = Cat_voice;
+    cat.tail_length = 10;
+    return cat;
 }
 
 // -------------------------------------------------------
 
 struct Dog {
-	union {
-		Animal animal;
-		struct Animal;
-	};
-	int teeth_count;
-	int* dogs_data;
+    union {
+        Animal animal;
+        struct Animal;
+    };
+    int teeth_count;
 };
 
-void
+static void
 Dog_voice(void* dog) {
-	printf("Bark!\n");
+    printf("Bark!\n");
 }
 
-Dog
+static Dog
 Dog_new() {
-	Dog dog = {
-		.animal=Animal_new(),
-		.teeth_count=10,
-		.dogs_data = malloc(sizeof(int)*20),
-		.voice = Dog_voice,
-	};
-	return dog;
-}
-
-void
-Dog_release(Dog* dog) {
-	Animal_release(&dog->animal);
-	free(dog->dogs_data);
+    Dog dog;
+    dog.animal = Animal_new();
+    dog.teeth_count = 10;
+    dog.voice = Dog_voice;
+    return dog;
 }
 
 // -------------------------------------------------------
@@ -108,27 +132,26 @@ Dog_release(Dog* dog) {
 ERROR / Duplicate Animal members
 
 struct CatDog {
-	union {
-		Cat cat;
-		struct Cat;
-	};
-	union {
-		Dog dog;
-		struct Dog;
-	};	
+    union {
+        Cat cat;
+        struct Cat;
+    };
+    union {
+        Dog dog;
+        struct Dog;
+    };  
 };
-*/ 	
+*/  
 
 // -------------------------------------------------------
 
 
 int
 main(void) {
-	Cat cat = Cat_new();
-	Dog dog = Dog_new();
-	printf("%d %d \n", cat.x, cat.y);
-	cat.voice(&cat);
-	dog.voice(&dog);
-	Cat_release(&cat);
-	Dog_release(&dog);
+    Cat cat = Cat_new();
+    Dog dog = Dog_new();
+    cat.introspection(&cat);
+    dog.introspection(&dog);
+    cat.voice(&cat);
+    dog.voice(&dog);
 }
