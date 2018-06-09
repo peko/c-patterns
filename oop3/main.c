@@ -13,14 +13,41 @@ struct Object {
     void (*introspection)(void*);
 };
 
-static void 
+struct Animal {
+    union {
+    	Object object;
+    	struct Object;
+    };
+    int age;
+    void (*voice)(void*);
+};
+
+struct Cat {
+    union {
+        Animal animal;
+        struct Animal;
+    };
+    int tail_length;
+};
+
+struct Dog {
+    union {
+        Animal animal;
+        struct Animal;
+    };
+    int teeth_count;
+};
+
+// -------------------------------------------------------
+
+inline static void 
 Object_introspection(void* object) {
     Object* o = object;
 	printf("Object: x: %d y: %d m: %d\n", 
 		o->x, o->y, o->m);
 }
 
-static Object 
+inline static Object 
 Object_new() {
 	Object object = {
 		.x = 0, 
@@ -38,15 +65,6 @@ Object_move(Object* object, int x, int y) {
 }
 
 // -------------------------------------------------------
-
-struct Animal {
-    union {
-    	Object object;
-    	struct Object;
-    };
-    int age;
-    void (*voice)(void*);
-};
 
 static void
 Animal_introspection (void* animal) {
@@ -72,14 +90,6 @@ Animal_new() {
 
 // ----------------------------------------------------
 
-struct Cat {
-    union {
-        Animal animal;
-        struct Animal;
-    };
-    int tail_length;
-};
-
 static void
 Cat_introspection (void* cat) {
     Animal_introspection(cat);
@@ -103,14 +113,6 @@ Cat_new() {
 }
 
 // -------------------------------------------------------
-
-struct Dog {
-    union {
-        Animal animal;
-        struct Animal;
-    };
-    int teeth_count;
-};
 
 static void
 Dog_voice(void* dog) {
@@ -150,6 +152,8 @@ int
 main(void) {
     Cat cat = Cat_new();
     Dog dog = Dog_new();
+    cat.introspection(&cat);
+    Object_move(&cat.object, 10, -10);
     cat.introspection(&cat);
     dog.introspection(&dog);
     cat.voice(&cat);
