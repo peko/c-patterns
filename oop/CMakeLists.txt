@@ -1,1 +1,2 @@
-add_executable(main main.c Animal.c Cat.c Dog.c Fish.c)
+project(ooc)
+add_executable(main main.c Object.c SpaceShip.c)

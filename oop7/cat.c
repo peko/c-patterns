@@ -1,5 +1,4 @@
 #include "struct.h"
-
 #include "cat.h"
 
 static void 
