@@ -20,9 +20,9 @@ static SpaceShip*
 Create() 
 {
     printf("Создание корабля\n");
-    SpaceShip* SpaceShip = malloc(sizeof(SpaceShip));
-    Init(SpaceShip);
-    return SpaceShip;
+    SpaceShip* spaceShip = malloc(sizeof(SpaceShip));
+    Init(spaceShip);
+    return spaceShip;
 }
 
 
@@ -30,16 +30,17 @@ static void
 Init(SpaceShip* outSpaceShip)
 {
     printf("Инициализация корабля\n");
-    AObject->Init(outSpaceShip->object);
+    AObject->Init(outSpaceShip);
 
     // Переназначеие базовых методов
-    outSpaceShip->object->Describe = _Describe;
-    outSpaceShip->object->Update   = _Update;
-    
-    outSpaceShip->fuel = 5+random()%10;
-    outSpaceShip->object->m += outSpaceShip->fuel;
+    outSpaceShip->Describe = _Describe;
+    outSpaceShip->Update   = _Update;
 
-    printf("Корабль инициализирован\n");
+    outSpaceShip->id   = random()%10000; 
+    outSpaceShip->fuel = 5+random()%10;
+    outSpaceShip->m   += outSpaceShip->fuel;
+
+    printf("Корабль инициализирован #%06d\n", outSpaceShip->id);
 }
 
 
@@ -47,9 +48,9 @@ Init(SpaceShip* outSpaceShip)
 static void
 Release(SpaceShip* spaceShip)
 {
-    printf("Oсвобождение ресурсов корабля\n");
-    AObject->Release(spaceShip->object);
-    printf("Ресурсы корабля освобождены\n");
+    printf("Oсвобождение ресурсов корабля #%06d\n", spaceShip->id);
+    AObject->Release(spaceShip);
+    printf("Ресурсы корабля освобождены #%06d\n", spaceShip->id);
 }
 
 
@@ -59,7 +60,7 @@ Destroy(SpaceShip* spaceShip)
 {
     Release(spaceShip);
     free(spaceShip);
-    printf("Корабль уничтожен\n");
+    printf("Корабль уничтожен #%06d\n", spaceShip->id);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------
@@ -68,8 +69,10 @@ Destroy(SpaceShip* spaceShip)
 static void 
 Describe(SpaceShip* spaceShip) 
 {
-    printf("Описание корабля\n"
-    "\tfuel: %+10.2f\n", spaceShip->fuel);
+    printf("Описание корабля #%06d\n"
+    "\tfuel: %+10.2f\n",
+    spaceShip->id,
+    spaceShip->fuel);
 } 
 
 
@@ -85,15 +88,15 @@ _Describe(Object* object)
 static void 
 Update(SpaceShip* spaceShip) 
 {
-    printf("Обновление параметров корабля\n");
+    printf("Обновление параметров корабля #%06d\n", spaceShip->id);
     if(spaceShip->fuel >0.0) {
       spaceShip->fuel -= 0.1;
-      spaceShip->object->m -= 0.1;
-      spaceShip->object->vx *=1.01;
-      spaceShip->object->vy *=1.01;
+      spaceShip->m -= 0.1;
+      spaceShip->vx *=1.01;
+      spaceShip->vy *=1.01;
     } else {
-      spaceShip->object->vx *=0.5;
-      spaceShip->object->vy *=0.5;
+      spaceShip->vx *=0.5;
+      spaceShip->vy *=0.5;
     }
 }
 
@@ -114,4 +117,6 @@ ASpaceShip[1] =  {
     Init,
     Release,
     Destroy,
+    _Update,
+    _Describe,
 };

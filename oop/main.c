@@ -2,19 +2,15 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "SpaceShip.h"
-#include "Object.h"
+#include "StarDestroyer.h"
 
 int main(void) {
-   SpaceShip* spaceShip = ASpaceShip->Create();
-   Object* object = spaceShip->object;
+   StarDestroyer* sd = AStarDestroyer->Create();
    for(int i=0; i<150; ++i)
    {
-     // printf("\e[1;1H\e[2J");
-     // usleep(10000);
-     object->Update(object);
-     object->Describe(object);
+     sd->Update(sd);
+     sd->Describe(sd);
    }
 
-   ASpaceShip->Destroy(spaceShip);
+   AStarDestroyer->Destroy(sd);
 }

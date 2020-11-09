@@ -1,2 +1,5 @@
 project(ooc)
-add_executable(main main.c Object.c SpaceShip.c)
+# set(CMAKE_C_STANDARD 1x)
+set(CMAKE_C_FLAGS "-fms-extensions -g")
+# set(CMAKE_C_COMPILER "/usr/bin/clang")
+add_executable(main main.c Object.c SpaceShip.c StarDestroyer.c)
